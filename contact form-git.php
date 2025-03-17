@@ -283,19 +283,16 @@ $form['quote_total'] = [
     return $form['quote_total']; // Ensure this returns correctly
   }
 
-  public function updateFormFields(array &$form, FormStateInterface $form_state) {
+ public function updateFormFields(array &$form, FormStateInterface $form_state) {
     $selected_hull = $form_state->getValue('hull_type');
 
+    // If hull_type option 3 (650000) is selected, apply forced selections
     if ($selected_hull == '650000') {
-        // Automatically set values and disable them
         $form['color_design']['#default_value'] = '20000';
         $form['color_design']['#disabled'] = TRUE;
 
         $form['power']['#default_value'] = '50000';
         $form['power']['#disabled'] = TRUE;
-
-        $form['interior']['#default_value'] = ['4500', '12500', '1200', '3500'];
-        $form['interior']['#disabled'] = TRUE;
 
         $form['stereo']['#default_value'] = '6000';
         $form['stereo']['#disabled'] = TRUE;
@@ -303,20 +300,44 @@ $form['quote_total'] = [
         $form['electronics']['#default_value'] = '10500';
         $form['electronics']['#disabled'] = TRUE;
 
+        // Set and disable checkboxes individually
+        $form['interior']['#default_value'] = ['4500', '12500', '1200', '3500'];
+        foreach (['4500', '12500', '1200', '3500'] as $option) {
+            $form['interior']['#options'][$option] = [
+                'disabled' => TRUE,
+            ];
+        }
+
         $form['rigging']['#default_value'] = ['750', '900', '1400', '1200'];
-        $form['rigging']['#disabled'] = TRUE;
+        foreach (['750', '900', '1400', '1200'] as $option) {
+            $form['rigging']['#options'][$option] = [
+                'disabled' => TRUE,
+            ];
+        }
     } else {
-        // Restore original functionality
+        // Restore all fields if a different hull type is selected
         $form['color_design']['#disabled'] = FALSE;
         $form['power']['#disabled'] = FALSE;
-        $form['interior']['#disabled'] = FALSE;
         $form['stereo']['#disabled'] = FALSE;
         $form['electronics']['#disabled'] = FALSE;
-        $form['rigging']['#disabled'] = FALSE;
+
+        // Enable checkboxes individually
+        foreach (['4500', '12500', '1200', '3500'] as $option) {
+            $form['interior']['#options'][$option] = [
+                'disabled' => FALSE,
+            ];
+        }
+
+        foreach (['750', '900', '1400', '1200'] as $option) {
+            $form['rigging']['#options'][$option] = [
+                'disabled' => FALSE,
+            ];
+        }
     }
 
     return $form;
 }
+
 
 
 public function submitForm(array &$form, FormStateInterface $form_state) {
