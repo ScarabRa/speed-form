@@ -260,6 +260,8 @@ $form['ajax_wrapper']['submit'] = [
   }
 
   public function updateQuoteTotal(array &$form, FormStateInterface $form_state) {
+ return $form['ajax_wrapper'];
+
     // Process checkbox values for Rigging & Interior
     $rigging_values = $form_state->getValue('rigging') ?: [];
     $rigging_total = array_sum(array_map('intval', array_filter($rigging_values)));
