@@ -56,6 +56,11 @@ class ContactForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+
+    // Add an AJAX wrapper to the entire form
+    $form['#prefix'] = '<div id="form-container">';
+    $form['#suffix'] = '</div>';
+
     $form['name'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Your Name'),
