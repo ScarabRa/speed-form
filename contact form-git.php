@@ -69,7 +69,7 @@ class ContactForm extends FormBase {
     ];
 
 
-$form['hull_type'] = [
+    $form['hull_type'] = [
   '#type' => 'radios',
   '#title' => $this->t('Hull Type'),
   '#description' => $this->t('Select the type of hull you want.'),
@@ -77,13 +77,11 @@ $form['hull_type'] = [
     '400000' => $this->t('SS 349 Hull $400,000 <span class="deets">Vaccume Infused Epoxy Fiberglass</span>'),
     '410000' => $this->t('SS 349 Carbon +10,000 <span class="deets">Vaccume Infused Epoxy Carbon/Glass Hybrid</span>'),
     '650000' => $this->t('Starship 349 Forged Carbon +$250,000 <span class="deets">Vaccume Infused Epoxy Carbon/Glass Hybrid with Visual hull sides and deck forged carbon. (Premium Package Only Available with Premium options below)</span>'),
-    
-     
   ],
   '#default_value' => '400000',
   '#ajax' => [
-    'callback' => '::updateQuoteTotal',
-    'wrapper' => 'quote-total',
+    'callback' => '::updateFormFields', // Triggers the update function
+    'wrapper' => 'form-container', // Ensure your form has an ID for AJAX
     'event' => 'change',
   ],
   '#options_attributes' => [
@@ -92,7 +90,6 @@ $form['hull_type'] = [
     '650000' => ['class' => ['forged-carbon-option']],
   ],
 ];
-
     
 $form['color_design'] = [
   '#type' => 'radios',
