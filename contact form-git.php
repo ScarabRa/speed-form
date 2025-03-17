@@ -283,6 +283,41 @@ $form['quote_total'] = [
     return $form['quote_total']; // Ensure this returns correctly
   }
 
+  public function updateFormFields(array &$form, FormStateInterface $form_state) {
+    $selected_hull = $form_state->getValue('hull_type');
+
+    if ($selected_hull == '650000') {
+        // Automatically set values and disable them
+        $form['color_design']['#default_value'] = '20000';
+        $form['color_design']['#disabled'] = TRUE;
+
+        $form['power']['#default_value'] = '50000';
+        $form['power']['#disabled'] = TRUE;
+
+        $form['interior']['#default_value'] = ['4500', '12500', '1200', '3500'];
+        $form['interior']['#disabled'] = TRUE;
+
+        $form['stereo']['#default_value'] = '6000';
+        $form['stereo']['#disabled'] = TRUE;
+
+        $form['electronics']['#default_value'] = '10500';
+        $form['electronics']['#disabled'] = TRUE;
+
+        $form['rigging']['#default_value'] = ['750', '900', '1400', '1200'];
+        $form['rigging']['#disabled'] = TRUE;
+    } else {
+        // Restore original functionality
+        $form['color_design']['#disabled'] = FALSE;
+        $form['power']['#disabled'] = FALSE;
+        $form['interior']['#disabled'] = FALSE;
+        $form['stereo']['#disabled'] = FALSE;
+        $form['electronics']['#disabled'] = FALSE;
+        $form['rigging']['#disabled'] = FALSE;
+    }
+
+    return $form;
+}
+
 
 public function submitForm(array &$form, FormStateInterface $form_state) {
     $to = 'hbdsu4appvz4@p3plzcpnl508915.prod.phx3.secureserver.net';
