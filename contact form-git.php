@@ -61,20 +61,27 @@ class ContactForm extends FormBase {
     $form['#prefix'] = '<div id="form-container">';
     $form['#suffix'] = '</div>';
 
-    $form['name'] = [
+$form['ajax_wrapper'] = [
+    '#type' => 'container',
+    '#attributes' => ['id' => 'ajax-wrapper'],
+];
+
+
+    
+$form['ajax_wrapper']['name'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Your Name'),
       '#required' => TRUE,
     ];
 
-    $form['contact_info'] = [
+$form['ajax_wrapper']['contact_info'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Email or Phone Number'),
       '#required' => TRUE,
     ];
 
 
-    $form['hull_type'] = [
+$form['ajax_wrapper']['hull_type'] = [
   '#type' => 'radios',
   '#title' => $this->t('Hull Type'),
   '#description' => $this->t('Select the type of hull you want.'),
@@ -96,7 +103,7 @@ class ContactForm extends FormBase {
   ],
 ];
     
-$form['color_design'] = [
+$form['ajax_wrapper']['color_design'] = [
   '#type' => 'radios',
   '#title' => $this->t('Color & Design'),
   '#description' => $this->t('Color Design Details'),
@@ -114,7 +121,7 @@ $form['color_design'] = [
 ];
 
 
-$form['power'] = [
+$form['ajax_wrapper']['power'] = [
   '#type' => 'radios',
   '#title' => $this->t('Power'),
   '#description' => $this->t('Power Details'),
@@ -132,7 +139,7 @@ $form['power'] = [
   '#attributes' => ['class' => ['BG_power']],
 ];
 
-    $form['steering'] = [
+$form['ajax_wrapper']['steering'] = [
       '#type' => 'radios',
       '#title' => $this->t('Steering'),
       '#description' => $this->t('Helm Options Details'),
@@ -149,7 +156,7 @@ $form['power'] = [
   ], '#attributes' => [ 'class' => ['BG_steering'], ],
     ];
 
-$form['interior'] = [
+$form['ajax_wrapper']['interior'] = [
   '#type' => 'checkboxes',
   '#title' => $this->t('Interior'),
   '#description' => $this->t('Interior Design Details'),
@@ -170,7 +177,7 @@ $form['interior'] = [
   '#attributes' => ['class' => ['BG_interior']],
 ];
 
-$form['stereo'] = [
+$form['ajax_wrapper']['stereo'] = [
     '#type' => 'radios',
     '#title' => $this->t('Stereo'),
     '#description' => $this->t('Audio Design Details'),
@@ -188,7 +195,7 @@ $form['stereo'] = [
 ];
       
 
-$form['electronics'] = [
+$form['ajax_wrapper']['electronics'] = [
     '#type' => 'radios',
     '#title' => $this->t('Electronics'),
     '#description' => $this->t('Electronics Details'),
@@ -205,7 +212,7 @@ $form['electronics'] = [
     '#attributes' => ['class' => ['BG_electronics']],
 ];
 
-$form['rigging'] = [
+$form['ajax_wrapper']['rigging'] = [
     '#type' => 'checkboxes',
     '#title' => $this->t('Rigging'),
     '#description' => $this->t('Rigging Details'),
@@ -226,7 +233,7 @@ $form['rigging'] = [
 ];
 
     
-$form['quote_total'] = [
+$form['ajax_wrapper']['quote_total'] = [
     '#type' => 'markup',
     '#prefix' => '<div id="quote-total-wrapper">',
     '#suffix' => '</div>',
@@ -238,12 +245,12 @@ $form['quote_total'] = [
     ',
 ];
 
-    $form['additional_notes'] = [
+$form['ajax_wrapper']['additional_notes'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Additional Notes or Requests'),
     ];
 
-    $form['submit'] = [
+$form['ajax_wrapper']['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Request Quote'),
     ];
