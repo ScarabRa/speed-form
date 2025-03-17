@@ -57,28 +57,41 @@ class ContactForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
 
-    // Add an AJAX wrapper to the entire form
-    $form['#prefix'] = '<div id="form-container">';
-    $form['#suffix'] = '</div>';
+if ($form_state->getValue('hull_type') == '650000') {
+    $form['ajax_wrapper']['color_design']['#default_value'] = '20000';
+    $form['ajax_wrapper']['color_design']['#disabled'] = TRUE;
 
-$form['ajax_wrapper'] = [
-    '#type' => 'container',
-    '#attributes' => ['id' => 'ajax-wrapper'],
-];
+    $form['ajax_wrapper']['power']['#default_value'] = '50000';
+    $form['ajax_wrapper']['power']['#disabled'] = TRUE;
+
+    $form['ajax_wrapper']['interior']['#default_value'] = ['1200', '3500', '2002'];
+    $form['ajax_wrapper']['interior']['#disabled'] = TRUE;
+
+    $form['ajax_wrapper']['stereo']['#default_value'] = '6000';
+    $form['ajax_wrapper']['stereo']['#disabled'] = TRUE;
+
+    $form['ajax_wrapper']['electronics']['#default_value'] = '10500';
+    $form['ajax_wrapper']['electronics']['#disabled'] = TRUE;
+}
 
 
     
-$form['ajax_wrapper']['name'] = [
+$form['name'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Your Name'),
       '#required' => TRUE,
     ];
 
-$form['ajax_wrapper']['contact_info'] = [
+$form['contact_info'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Email or Phone Number'),
       '#required' => TRUE,
     ];
+    
+$form['ajax_wrapper'] = [
+    '#type' => 'container',
+    '#attributes' => ['id' => 'ajax-wrapper'],
+];
 
 
 $form['ajax_wrapper']['hull_type'] = [
@@ -139,7 +152,7 @@ $form['ajax_wrapper']['power'] = [
   '#attributes' => ['class' => ['BG_power']],
 ];
 
-$form['ajax_wrapper']['steering'] = [
+$form['steering'] = [
       '#type' => 'radios',
       '#title' => $this->t('Steering'),
       '#description' => $this->t('Helm Options Details'),
@@ -259,8 +272,12 @@ $form['ajax_wrapper']['submit'] = [
     
   }
 
+
   public function updateQuoteTotal(array &$form, FormStateInterface $form_state) {
- return $form['ajax_wrapper'];
+    return $form['ajax_wrapper'];
+}
+  
+  public function updateQuoteTotal(array &$form, FormStateInterface $form_state) {
 
     // Process checkbox values for Rigging & Interior
     $rigging_values = $form_state->getValue('rigging') ?: [];
